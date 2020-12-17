@@ -1,30 +1,372 @@
+<!--Benazoid website-->
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
-    <title>Arson Club</title>
-    <link rel="shortcut icon" type="image/jpg" href="favicon.ico" />
+    <title>Hallo</title>
+    <link rel="shortcut icon" type="image/png" href="icon.png">
+
+<style>
+    .noice {
+        font-family: Arial, Helvetica, sans-serif;
+
+    }
+    #times {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    #times td, #times th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #times tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    #times th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4043de;
+        color: white;
+    }
+    .picker label {
+        border: 1px solid black;
+        padding: 4px;
+        margin: 0px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .picker{
+        padding-top: 10px;
+    }
+    .picker input{display: none}
+</style>
 </head>
+
 <body>
-    <nav class="w3-bar w3-orange">
-        <a href="#home" class="w3-button w3-bar-item">Home</a>
-        <a href="#band" class="w3-button w3-bar-item">Band</a>
-        <a href="#tour" class="w3-button w3-bar-item">Tour</a>
-        <a href="#contact" class="w3-button w3-bar-item">Contact</a>
-    </nav>
-    <section class="w3-container w3-center" style="max-width:600px">
-        <h2 class="w3-wide">THE ARSON CLUB</h2>
-        <p class="w3-opacity"><i>yeehaw</i></p>
-    </section>
-    <h1>Hi</h1>
-    hello there
+    <form class="picker" id="lunch-picker" align="left">
+        <input type="radio" id="a-lunch" name="lunch" value=1 onClick="updateA()">
+        <label for="a-lunch" class="lab" id="a">A Lunch</label>
+        <input type="radio" id="b-lunch" name="lunch" value=2 onclick="updateB()">
+        <label for="b-lunch" class="lab" id="b">B Lunch</label><br>
+    </form>
+
+    <form class="picker" id="schedule-format" align="left">
+        <input type="radio" id="full" name="format" value=1 onClick="updateC()">
+        <label for="full" class="lab" id="c">Full schedule</label>
+        <input type="radio" id="current" name="format" value=2 onclick="updateD()">
+        <label for="current" class="lab" id="d">Current period</label><br>
+    </form>
+
+    <form class="picker" id="time-format" align="left">
+        <input type="radio" id="time12" name="time" value=1 onClick="updateE()">
+        <label for="time12" class="lab" id="e">12 hour time</label>
+        <input type="radio" id="time24" name="time" value=2 onclick="updateF()">
+        <label for="time24" class="lab" id="f">24 hour time</label><br>
+    </form>
+
+    <p class="noice" align="center"><span id="time"></span> | <span id="date"></span></p>
+
+    <br>
+    <table id="times">
+        <tr>
+            <th>Period</th>
+            <th>Time to start</th>
+            <th>Time to end</th>
+            <th>Start time</th>
+            <th>End time</th>
+        </tr>
+        <tr>
+            <td>Period 1</td>
+            <td class="ts" id="c1"></td>
+            <td class="te" id="d1"></td>
+            <td class="st" id="a1"></td>
+            <td class="et" id="b1"></td>
+        </tr>
+        <tr>
+            <td>Passing</td>
+            <td class="ts" id="c2"></td>
+            <td class="te" id="d2"></td>
+            <td class="st" id="a2"></td>
+            <td class="et" id="b2"></td>
+        </tr>
+        <tr>
+            <td>Advisory</td>
+            <td class="ts" id="c3"></td>
+            <td class="te" id="d3"></td>
+            <td class="st" id="a3"></td>
+            <td class="et" id="b3"></td>
+        </tr>
+        <tr>
+            <td>Passing</td>
+            <td class="ts" id="c4"></td>
+            <td class="te" id="d4"></td>
+            <td class="st" id="a4"></td>
+            <td class="et" id="b4"></td>
+        </tr>
+        <tr>
+            <td>Period 2</td>
+            <td class="ts" id="c5"></td>
+            <td class="te" id="d5"></td>
+            <td class="st" id="a5"></td>
+            <td class="et" id="b5"></td>
+        </tr>
+        <tr>
+            <td>Passing</td>
+            <td class="ts" id="c6"></td>
+            <td class="te" id="d6"></td>
+            <td class="st" id="a6"></td>
+            <td class="et" id="b6"></td>
+        </tr>
+        <tr class="hide-b">
+            <td>A Lunch</td>
+            <td class="ts" id="c7"></td>
+            <td class="te" id="d7"></td>
+            <td class="st" id="a7"></td>
+            <td class="et" id="b7"></td>
+        </tr>
+        <tr class="hide-a">
+            <td>Period 3a</td>
+            <td class="ts" id="c8"></td>
+            <td class="te" id="d8"></td>
+            <td class="st" id="a8"></td>
+            <td class="et" id="b8"></td>
+        </tr>
+        <tr class="hide-b">
+            <td>Period 3b</td>
+            <td class="ts" id="c9"></td>
+            <td class="te" id="d9"></td>
+            <td class="st" id="a9"></td>
+            <td class="et" id="b9"></td>
+        </tr>
+        <tr class="hide-a">
+            <td>B Lunch</td>
+            <td class="ts" id="c10"></td>
+            <td class="te" id="d10"></td>
+            <td class="st" id="a10"></td>
+            <td class="et" id="b10"></td>
+        </tr>
+        <tr>
+            <td>Passing</td>
+            <td class="ts" id="c11"></td>
+            <td class="te" id="d11"></td>
+            <td class="st" id="a11"></td>
+            <td class="et" id="b11"></td>
+        </tr>
+        <tr>
+            <td>Period 4</td>
+            <td class="ts" id="c12"></td>
+            <td class="te" id="d12"></td>
+            <td class="st" id="a12"></td>
+            <td class="et" id="b12"></td>
+        </tr>
+    </table>
+
 
     <script>
-        var containers = document.getElementsByClassName("w3-container w3-center");
-        console.log(screen.width);
-        //containers.style.maxWidth = screen.width;
+        var timeOffset = 0; //The amount of seconds the school's time is off by
+        var starTimes = ["7:45", "9:13", "9:19", "9:49", "9:55", "11:23", "11:29", "11:29", "12:13", "12:57", "1:41", "1:47"];
+        var endTimes = ["9:13", "9:19", "9:49", "9:55", "11:23", "11:29", "12:13", "12:57", "1:41", "1:41", "1:47", "3:15"];
+        var currs = [];
+        var format = true;
+        var timeFormat = true;
+
+        var timeNum = function (time) {
+            var stuff = [];
+            var i = 0;
+            while (time[i] != ":") {
+                i++;
+            }
+            if (time.substring(0, i) > 0 && time.substring(0, i) < 4) {
+                stuff.push(parseInt(time.substring(0, i)) + 12);
+            }
+            else {
+                stuff.push(parseInt(time.substring(0, i)));
+            }
+
+            stuff.push(parseInt(time.substring(i + 1, time.length)));
+            return stuff;
+        }
+
+        var subTimes = function (time, sec, min, hour) {
+            //Time2 is always the current time time-time2
+            var goal = timeNum(time);
+            var seconds = 0 - sec;
+            var minutes = goal[1] - min;
+            var hours = goal[0] - hour;
+            if (seconds < 0) {
+                seconds += 60;
+                minutes--;
+                if (seconds < 10) {
+                    seconds = 0 + "" + seconds;
+                }
+            }
+            if (minutes < 0) {
+                minutes += 60;
+                hours--;
+            }
+            if (minutes < 10) {
+                minutes = 0 + "" + minutes;
+            }
+            if (hours >= 0) {
+                if (hours < 10) {
+                    hours = 0 + "" + hours;
+                }
+                return hours + ":" + minutes + ":" + seconds;
+            }
+            else {
+                return "00:00:00";
+            }
+        }
+
+        function updateClock() {
+            var now = new Date(), // current date
+                months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            var days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+            var secs = now.getSeconds() + timeOffset;
+            if (secs < 10) {
+                secs = 0 + "" + secs;
+            }
+            var mins = now.getMinutes();
+            if (mins < 10) {
+                mins = 0 + "" + mins;
+            }
+            var hours = now.getHours();
+            if (hours < 10) {
+                hours = 0 + "" + hours;
+            }
+
+            time = hours + ':' + mins + ":" + secs;
+            date = months[now.getMonth()];
+            // set the content of the element with the ID time to the formatted string
+            document.getElementById('date').innerHTML = days[now.getDay()] + ' ' + date + ' ' + now.getDate() + ', ' + now.getFullYear();
+            document.getElementById('time').innerHTML = time;
+
+            //Sets all the table stuff
+            var sts = document.getElementsByClassName("st");
+            var et = document.getElementsByClassName("et");
+            var tts = document.getElementsByClassName("ts");
+            var ets = document.getElementsByClassName("te");
+            for (var i = 0; i < sts.length; i++) {
+                var starts = starTimes[sts[i].id.substring(1, sts[i].id.length) - 1];
+                var ends = endTimes[ets[i].id.substring(1, ets[i].id.length) - 1];
+                sts[i].innerHTML = starts;
+                et[i].innerHTML = ends;
+                tts[i].innerHTML = subTimes(starts, now.getSeconds(), now.getMinutes(), now.getHours());
+                ets[i].innerHTML = subTimes(ends, now.getSeconds(), now.getMinutes(), now.getHours());
+            }
+
+            //Highlights current periods
+            var table = document.getElementById("times").getElementsByTagName("tr");
+            currs = [];
+            for (var i = 0; i < table.length; i++) {
+                var cols = table[i].children;
+                if (cols[1].innerHTML == "done" && cols[2].innerHTML != "done") {
+                    if (format == true) {
+                        table[i].style.backgroundColor = "#ddd";
+                    }
+                    currs.push(i);
+                }
+            }
+            // call this function again in 1000ms
+            setTimeout(updateClock, 1000);
+        }
+        updateClock(); // initial call
+
+        var updateA = function () {
+            var a = document.getElementsByClassName("hide-a");
+            var b = document.getElementsByClassName("hide-b");
+            var tab = document.getElementById("times").getElementsByTagName("tr");;
+            tab[9].style.backgroundColor = "white";
+            for (var i = 0; i < a.length; i++) {
+                b[i].style.display = "";
+                a[i].style.display = "none";
+            }
+            b = document.getElementById("b");
+            a = document.getElementById("a");
+            a.style.backgroundColor = "#4043de";
+            a.style.color = "white";
+            b.style.backgroundColor = "white";
+            b.style.color = "black";
+            if (format) { updateC(); }
+            else { updateD() }
+        }
+        var updateB = function () {
+            var a = document.getElementsByClassName("hide-a");
+            var b = document.getElementsByClassName("hide-b");
+            var tab = document.getElementById("times").getElementsByTagName("tr");;
+            tab[8].style.backgroundColor = "#f2f2f2";
+            for (var i = 0; i < a.length; i++) {
+                a[i].style.display = "";
+                b[i].style.display = "none";
+            }
+            b = document.getElementById("b");
+            a = document.getElementById("a");
+            b.style.backgroundColor = "#4043de";
+            b.style.color = "white";
+            a.style.backgroundColor = "white";
+            a.style.color = "black";
+            if (format) { updateC(); }
+            else { updateD() }
+        }
+
+        var updateC = function () {
+            format = true;
+            var tab = document.getElementById("times").getElementsByTagName("tr");
+            for (var i = 0; i < tab.length; i++) {
+                tab[i].style.display = "";
+            }
+            var c = document.getElementById("c");
+            var d = document.getElementById("d");
+            c.style.backgroundColor = "#4043de";
+            c.style.color = "white";
+            d.style.backgroundColor = "white";
+            d.style.color = "black";
+        }
+        var updateD = function () {
+            format = false;
+            var tab = document.getElementById("times").getElementsByTagName("tr");
+            for (var i = 0; i < tab.length; i++) {
+                if (!currs.includes(i) && i != 0) {
+                    tab[i].style.display = "none";
+                }
+                else {
+                    tab[i].style.display = "";
+                    tab[i].style.backgroundColor = "white";
+                }
+            }
+            var c = document.getElementById("d");
+            var d = document.getElementById("c");
+            c.style.backgroundColor = "#4043de";
+            c.style.color = "white";
+            d.style.backgroundColor = "white";
+            d.style.color = "black";
+        }
+        
+        
+        var updateE = function () {
+            var e = document.getElementById("e");
+            var f = document.getElementById("f");
+            e.style.backgroundColor = "#4043de";
+            e.style.color = "white";
+            f.style.backgroundColor = "white";
+            f.style.color = "black";
+            timeFormat = true;
+        }
+        var updateF = function () {
+            var e = document.getElementById("e");
+            var f = document.getElementById("f");
+            f.style.backgroundColor = "#4043de";
+            f.style.color = "white";
+            e.style.backgroundColor = "white";
+            e.style.color = "black";
+            timeFormat = false;
+        }
+        updateC();
+        updateE();
     </script>
 </body>
 </html>
