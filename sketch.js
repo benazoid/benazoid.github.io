@@ -309,14 +309,10 @@ function draw () {
     player.moveBlock();
     player.hit();
     if(keys[keyNums.jump] && collisions.includes("bottom")){
-      player.velocity.y = -5;
+      player.velocity.y = -8;
     }
     if(collisions.includes("bottom")){
       player.extraJump = true;
-    }
-    if(keys[keyNums.jump] && player.velocity.y < 0 && player.velocity.y > -1 && player.extraJump){
-      player.velocity.y = -7;
-      player.extraJump = false;
     }
     if(underBlock && keys[keyNums.swap] && !collisions.includes("top") && !collisions.includes("bottom")){
       underBlock.change();
