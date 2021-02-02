@@ -1,4 +1,5 @@
 var world = {
+  version: "1.0",
   grav: 0.2,
   currPlayer: 0,
   level: 0,
@@ -24,6 +25,8 @@ var player;
 var jumpForce = 8 * (world.scaleY/0.8);;
 var time;
 var spaceUp = false;
+var wait = false;
+var waitTime = 11;
 var ons = [false,false,false,false];
 document.cookie = "hello";
 
@@ -230,16 +233,19 @@ function nextLevel(){
     blocks = [];
     var level = levels[world.level];
     var blo = level.start;
-    blocks.push(new Block(blo.x*world.scaleX,blo.y*world.scaleY,blo.width*world.scaleX,blo.height*world.scaleY,blo.type,blo.link,blo.message));
-    if(levels[world.level].player){
-      blo = level.player;
+    function bloPush(){
       blocks.push(new Block(blo.x*world.scaleX,blo.y*world.scaleY,blo.width*world.scaleX,blo.height*world.scaleY,blo.type,blo.link,blo.message));
     }
+    bloPush();
+    if(levels[world.level].player){
+      blo = level.player;
+      bloPush();
+    }
     blo = level.end;
-    blocks.push(new Block(blo.x*world.scaleX,blo.y*world.scaleY,blo.width*world.scaleX,blo.height*world.scaleY,blo.type,blo.link,blo.message));
+    bloPush();
     for(var i = 0; i < level.blocks.length; i++){
       blo = level.blocks[i];
-      blocks.push(new Block(blo.x*world.scaleX,blo.y*world.scaleY,blo.width*world.scaleX,blo.height*world.scaleY,blo.type,blo.link,blo.message));
+      bloPush();
     }
     if(levels[world.level].player){
       world.currPlayer = 1;
@@ -254,7 +260,10 @@ function nextLevel(){
   }
 }
 Block.prototype.change = function(){
-  if(!collisions.includes("top")){
+  if(!collisions.includes("top") && waitTime > 10){
+    waitTime = 0;
+    wait = true;
+    console.log("ello");
     underBlock.inControl = true;
     player.inControl = false;
     world.currPlayer = underNum;
@@ -330,7 +339,7 @@ function draw () {
       spaceUp = false;
     }
 
-    if(underBlock && keys[keyNums.swap] && !collisions.includes("top") && !collisions.includes("bottom")){
+    if(underBlock && keys[keyNums.swap] && !collisions.includes("top") && !collisions.includes("bottom") && wait){
       underBlock.change();
     }
     if(world.timer && world.level > 1){
@@ -341,11 +350,19 @@ function draw () {
       time = Math.floor(world.time/frameRate()*10*deltaTime)/100;
       noFill();
     }
+    else if(world.level < 1){
+      fill(0,0,0);
+      textSize(12);
+      text("Version " + world.version,30*world.scaleX,30*world.scaleY);
+    }
+    if(wait){
+      waitTime ++;
+    }
   }
   else{
     fill(0, 0, 0);
-    textSize(50);
-    text("      YAY\n\nYOU WON :)\n\n    PRESS\n  RESTART\n\n   "+time,161,128);
+    textSize(40*world.scaleY);
+    text("      YAY\n\nYOU WON :)\n\n    PRESS\n  RESTART\n\n   "+time,161*world.scaleX,128*world.scaleY);
   }
   for(var i = 0; i < ons.length; i++){
     if(ons[i]){
@@ -359,13 +376,13 @@ function draw () {
   }
 };
 
-keyReleased = function(){
+function keyReleased(){
   keys[keyCode] = false;
-  if(keyCode === 32){
+  if(keyCode === keyNums.jump){
     spaceUp = true;
   }
 };
-keyPressed = function(){
+function keyPressed(){
   keys[keyCode] = true;
   if(underBlock && keys[keyNums.swap] && !collisions.includes("top")){
     underBlock.change();
