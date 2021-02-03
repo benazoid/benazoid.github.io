@@ -1,6 +1,6 @@
 var world = {
-  version: "1.0",
-  grav: 0.2,
+  version: "1.1.0",
+  grav: 0.25,
   currPlayer: 0,
   level: 0,
   done: false,
@@ -62,8 +62,8 @@ var Block = function(x,y,width,height,type,link,message){
 const level0 = {
   start: new Block(288,322,21,21,"start",false),
   player: false,
-  end: new Block(374,450,130,130,"end", 3, "Start Game"),
-  blocks: [new Block(132,458,122,122,"block",2, "Settings")]
+  end: new Block(250,450,130,130,"end", 2, "Start Game"),
+  blocks: [/*new Block(132,458,122,122,"block",2, "Settings")*/]
 };
 const level1 = {
   start: new Block(288,322,21,21,"start",false),
@@ -96,7 +96,9 @@ const level5 = {
   blocks: [new Block(224,459,43,43,"block"),new Block(157,455,44,44,"block")]
 };
 
-var levels = [level0,level1,level2,level3,level4,level5];
+var levels = [level0,level2,level3,level4,level5];
+var levelMaps = [];
+
 Block.prototype.moveBlock = function(){
   if(this.inControl){
     if(keys[keyNums.left] && !keys[keyNums.right]){
@@ -263,7 +265,6 @@ Block.prototype.change = function(){
   if(!collisions.includes("top") && waitTime > 10){
     waitTime = 0;
     wait = true;
-    console.log("ello");
     underBlock.inControl = true;
     player.inControl = false;
     world.currPlayer = underNum;
@@ -342,7 +343,7 @@ function draw () {
     if(underBlock && keys[keyNums.swap] && !collisions.includes("top") && !collisions.includes("bottom") && wait){
       underBlock.change();
     }
-    if(world.timer && world.level > 1){
+    if(world.timer && world.level > 0){
       world.time ++;
       textSize(20);
       fill(0,0,0);
@@ -362,7 +363,7 @@ function draw () {
   else{
     fill(0, 0, 0);
     textSize(40*world.scaleY);
-    text("      YAY\n\nYOU WON :)\n\n    PRESS\n  RESTART\n\n   "+time,161*world.scaleX,128*world.scaleY);
+    text("               YAY\n\n         YOU WON :)\n\nPRESS R TO RESTART\n\n             "+time,50*world.scaleX,128*world.scaleY);
   }
   for(var i = 0; i < ons.length; i++){
     if(ons[i]){
@@ -372,6 +373,32 @@ function draw () {
       textSize(30);
       text("Press key to change control",120,130);
       noFill();
+    }
+  }
+  if(world.level == 0){
+    if(mouseIsPressed && mouseX > level0.end.x * world.scaleX && mouseY > level0.end.y * world.scaleY && mouseX < (level0.end.x + level0.end.width)*world.scaleX && mouseY < (level0.end.y + level0.end.height)*world.scaleY){
+      world.level = 1;
+      nextLevel();
+    }
+    noFill();
+    stroke(0,0,0);
+    rect(350,20,20,20);
+    textSize(8);
+    text("i",359,35);
+    strokeWeight(2);
+    point(360,25);
+    strokeWeight(1);
+    if(mouseX > 350 && mouseY > 20 && mouseX < 370 && mouseY < 40){
+      textSize(25);
+      fill(0,0,0);
+      var space = keyNums.jumpKey;
+      if(keyNums.jump == 32){
+        space = "space";
+      }
+      text("Get the orange and blue blocks together",20,100);
+      text("press " + keyNums.leftKey + " to go left and " + keyNums.rightKey + " to go right",50,150);
+      text("press " + space + " to jump",125,200);
+      text("If you are toutching another block,\n you can press " + keyNums.swapKey + " to change into it",50,250);
     }
   }
 };
@@ -411,5 +438,11 @@ function keyPressed(){
       }
       ons[i] = false;
     }
+  }
+  if(keyCode == 82){
+    world.level = 0;
+    world.time = 0;
+    world.done = false;
+    nextLevel();
   }
 };
