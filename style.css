@@ -1,0 +1,21 @@
+img{
+  padding-top: 10px;
+  padding-left: 15px;
+}
+.link {
+  width: 50;
+  height: 50;
+  padding: 5px;
+  border: 2px solid rgb(166, 191, 186);
+  display: inline;
+  margin: 20px;
+}
+a{
+  text-decoration: none;
+}
+p{
+  display: inline;
+}
+canvas{
+  padding: 10px;
+}
