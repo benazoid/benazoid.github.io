@@ -22,7 +22,7 @@ let pressedKeys = [];
 let flyMode = false;
 let flyKeys = [72,73,84,72,69,82,69];
 
-let curCheck = 2;
+let curCheck = 0;
 
 function findAng(x1,y1,x2,y2){
   let theta = (y2 >= y1) ? Math.atan((x2-x1)/(y2-y1))+(Math.PI) : Math.atan((x2-x1)/(y2-y1))+(2*Math.PI);
