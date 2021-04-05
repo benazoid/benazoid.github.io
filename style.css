@@ -15,6 +15,7 @@ a{
 }
 p{
   display: inline;
+  padding-left: 20px;
 }
 canvas{
   padding: 10px;
