@@ -199,7 +199,7 @@ draw = function() {
       pos ++;
     }
     if(pos < xs.length){
-      player.x = xs[pos
+      player.x = xs[pos];
       player.y = ys[pos];
     }
   }
