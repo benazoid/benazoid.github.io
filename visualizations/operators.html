@@ -8,7 +8,7 @@
     <div id="canvas"></div>
     <input type="text" id="input" placeholder="operator">
     <input type="text" id="scaleI" placeholder="scale"><br><br>
-    <p>This sketch visualizes different operators. What it does is gets an x and y coordinate, puts them through a given operator, and uses that value as an outputted color. For example, it might take coordinate 200,-50 and divide them, getting -4 which then gets used as a color. The scale zooms the coordinate grid in and out. <br><br>You can use + for addition, - for subtraction, * for multiplication, / for division, pow for exponents, root for roots, and % for the modulus operator (the remainder of dividing two numbers)</p>
+    <p>This sketch visualizes different operators. What it does is gets an x and y coordinate, puts them through a given operator, and uses that value as an outputted color. For example, it might take coordinate 200,-50 and divide them, getting -4 which then gets used as a color. The scale zooms the coordinate grid in and out. <br><br>You can use + for addition, - for subtraction, * for multiplication, / for division, pow for exponents, root for roots, log for logs and % for the modulus operator (the remainder of dividing two numbers)</p>
 
     <script src="../../libraries/p5.js"></script>
     <script>
@@ -25,6 +25,10 @@
           scaleNum = scaleInput.value/1;
         }
         console.log(scaleNum);
+      }
+
+      function getBaseLog(x, y) {
+        return Math.log(y) / Math.log(x);
       }
 
       function getValue(x,y){
@@ -49,6 +53,9 @@
             break;
           case "%":
             return Math.abs((x - 200)%(y - 200))*scaleNum;
+            break;
+          case "log":
+            return Math.abs(getBaseLog((x - 200),1/(y - 200)))*scaleNum;
             break;
         }
       }
