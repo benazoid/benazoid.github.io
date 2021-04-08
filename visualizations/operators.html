@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="canvas"></div>
+    <input type="text" id="input" placeholder="operator">
+    <input type="text" id="scaleI" placeholder="scale"><br><br>
+    <p>This sketch visualizes different operators. What it does is gets an x and y coordinate, puts them through a given operator, and uses that value as an outputted color. For example, it might take coordinate 200,-50 and divide them, getting -4 which then gets used as a color. The scale zooms the coordinate grid in and out. <br><br>You can use + for addition, - for subtraction, * for multiplication, / for division, pow for exponents, root for roots, and % for the modulus operator (the remainder of dividing two numbers)</p>
+
+    <script src="../../libraries/p5.js"></script>
+    <script>
+      let input = document.getElementById('input');
+      let scaleInput = document.getElementById('scaleI');
+      let operator = "*";
+      let scaleNum = 1;
+      input.onblur = function(){
+        operator = input.value;
+        console.log(operator);
+      }
+      scaleInput.onblur = function(){
+        if(scaleInput.value/2){
+          scaleNum = scaleInput.value/1;
+        }
+        console.log(scaleNum);
+      }
+
+      function getValue(x,y){
+        switch(operator){
+          case "+":
+            return Math.abs((x - 200)+(y - 200))*scaleNum;
+            break;
+          case "-":
+            return Math.abs((x - 200)-(y - 200))*scaleNum;
+            break;
+          case "*":
+            return Math.abs((x - 200)*(y - 200))*scaleNum;
+            break;
+          case "/":
+            return Math.abs((x - 200)/(y - 200))*scaleNum;
+            break;
+          case "pow":
+            return Math.abs(Math.pow((x - 200),(y - 200)))*scaleNum;
+            break;
+          case "root":
+            return Math.abs(Math.pow((x - 200),1/(y - 200)))*scaleNum;
+            break;
+          case "%":
+            return Math.abs((x - 200)%(y - 200))*scaleNum;
+            break;
+        }
+      }
+
+      function setup(){
+        let canvas = createCanvas(400,400);
+        canvas.parent("canvas");
+        for(let i = 0; i < width; i++){
+          for(let j = 0; j < height; j++){
+            colorMode(HSB);
+            stroke(getValue(i,j),100,100);
+            point(i,j);
+          }
+        }
+      }
+      function mousePressed(){
+        for(let i = 0; i < width; i++){
+          for(let j = 0; j < height; j++){
+            colorMode(HSB);
+            stroke(getValue(i,j),100,100);
+            point(i,j);
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
