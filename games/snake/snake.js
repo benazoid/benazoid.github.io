@@ -13,10 +13,12 @@ function draw(){
   let y = snake[0].y;
   background(0,0,360);
   stroke('rgba(176, 195, 212,0.5)');
+  strokeWeight(3);
   line(0,0,0,height);
   line(0,0,width,0);
   line(0,height,width,height);
   line(width,height,width,0)
+  strokeWeight(1);
   snake[0].move();
   for(let i = 0; i < snake.length; i++){
     snake[i].draw();
