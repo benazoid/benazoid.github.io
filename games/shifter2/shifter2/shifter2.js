@@ -28,7 +28,7 @@ function setup(){
 }
 
 function draw(){
-  let player = Level.levels[Level.level].blocks[Level.levels[level.level].player];
+  let player = Level.levels[Level.level].blocks[Level.levels[this.level].player];
   Level.go(true,player);
 
   if(keys[Keys.p] && !settingsOpen){
