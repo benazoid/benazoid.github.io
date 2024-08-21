@@ -123,22 +123,6 @@ class Meteor{
         return new Meteor(xi, yi, xf, yf, true);
     }
 
-    /*
-    lifetime
-
-    t = 0:
-    color = 0
-    start fade in
-
-    t = 0.1:
-    fully apparent
-    
-    t = 0.15:
-    line starts
-
-
-    */
-
 }
 
 
