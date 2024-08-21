@@ -46,7 +46,7 @@ function drawText(){
     noStroke();
 
     if(textTime){
-        text(" Meteor Shower\nby Steve Martin\n  other text", width/2 - 150, 200)
+        text("Ojai, California\n\n   August 1993\n\n       83°", width/2 - 150, 200)
     }
 
 }
