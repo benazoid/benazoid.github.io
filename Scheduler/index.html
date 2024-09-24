@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekend Schedule</title>
+</head>
+<body>
+
+    <style>
+        #rightSide{
+            float: left;
+            border: 1px solid black;
+            padding: 20px;
+            margin: 5px;
+        }
+        #profile{
+            border: 1px solid black;
+            padding: 20px;
+            margin: 5px;
+            display: inline-block;
+        }
+
+        .center{
+            
+            margin: auto;
+            width: 50%;
+        }
+
+        #generate{
+            float: right;
+        }
+
+        #schedule{
+            position: absolute;
+            bottom: 0px;
+            border: 1px solid black;
+        }
+
+        table{
+            border-collapse:collapse;
+            border:1px solid black;
+        }
+
+        table td{
+            border:1px solid black;
+        }
+
+    </style>
+
+    <script src="date.js"></script>
+    <script src="scheduler.js"></script>
+    <script src="main.js"></script>
+
+
+    <div id="rightSide"> 
+        <br>
+        <form>
+            <label>New Employee</label><br>
+            <input type="text" id="nameInput"><br><br>
+            <input type="button" id="submitName" value="Submit" onclick="newEmployee()"> 
+        </form> <hr>
+        <div id="peopleDiv">
+            <h2 id="employees">Employees</h2>
+        </div>
+    </div>
+
+    <div id="profile">
+        <span id="profileName" >Name</span>
+        <input type="button", value="delete", onclick="removeCurrentPerson()"> <br><br>
+        <div id="month1Div"></div>
+        <div id="month2Div"></div>
+        <div id="month3Div"></div>
+    </div>
+
+    <input type="submit" value="Generate Schedule" onclick="generateSchedule()" id="generate">
+
+    <div id="schedule">
+        
+    </div>
+    
+</body>
+</html>
