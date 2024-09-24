@@ -13,8 +13,6 @@ let currentPerson = null;
 
 peopleList = []
 
-makePeople();
-
 function addTable(pri, em){
     let scheduleDiv = document.getElementById("schedule");
 
