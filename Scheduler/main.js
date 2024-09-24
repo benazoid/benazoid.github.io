@@ -271,7 +271,7 @@ function addProfileWeekends(){
 function getSaturdays(date){
     //aug,sep,oct -- nov,dec,jan -- feb,mar,apr -- may,jun,jul
     
-    let startMonth = (((date.month - 2) % 12) / 3) * 3 + 1;
+    let startMonth = (((date.month - 2) % 12) / 3 + 1) * 3 + 1;
     let startYear = date.year;
     if(date.month == 0){
         startYear = date.year-1;
